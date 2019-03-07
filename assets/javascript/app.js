@@ -1,5 +1,8 @@
 $(document).ready(function () {
     $(".reset").hide();
+    $(".start").on("click", function() {
+        $(".start").hide();
+    })
 });
 
 var timer = 20;
@@ -10,6 +13,10 @@ var scoreUA = 0;
 var userAnswer = "";
 var questionList = questions.length;
 var counterStart = false;
+var newArray = [];
+var contain = [];
+var choose;
+var index;
 
 
 /// Variable holds Questions
@@ -49,3 +56,9 @@ var questions = [
         choices: ["True", "False"],
         answer: 1,
     }];
+
+function showQuestion() {
+    index = Math.floor(Math.random() * questions.length);
+    choose = questions[index];
+    $(".questionDiv")
+}
