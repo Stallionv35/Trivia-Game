@@ -1,23 +1,11 @@
-$(document).ready(function () {
-    $(".reset").hide();
-    $(".start").on("click", function() {
-        $(".start").hide();
-    })
-});
-
-var timer = 20;
-var timeInterval;
-var scoreCorrect = 0;
-var scoreWrong = 0;
-var scoreUA = 0;
-var userAnswer = "";
-var questionList = questions.length;
-var counterStart = false;
-var newArray = [];
-var contain = [];
-var choose;
-var index;
-
+$(".reset").hide();
+$(".start").on("click", function() {
+    $(".start").hide();
+    showQuestion();
+    for (i = 0; i < questions.length; i++){
+        contain.push(questions[i]);
+    }
+})
 
 /// Variable holds Questions
 var questions = [
@@ -57,8 +45,29 @@ var questions = [
         answer: 1,
     }];
 
+var timer = 20;
+var timeInterval;
+var scoreCorrect = 0;
+var scoreWrong = 0;
+var scoreUA = 0;
+var userAnswer = "";
+var questionList = questions.length;
+var counterStart = false;
+var newArray = [];
+var contain = [];
+var choose;
+var index;
+
 function showQuestion() {
     index = Math.floor(Math.random() * questions.length);
     choose = questions[index];
-    $(".questionDiv")
+    $(".questionDiv").html("<p>" + choose.question + "</p>");
+    for (i = 0; i < choose.choices.length; i++){
+        userGuess = $("<div>");
+        userGuess.addClass("guesschoice");
+        userGuess.html(choose.choices[i]);
+        userGuess.attr("data-guessvalue", i);
+        $(".answerDiv").append(userGuess);
+    }
 }
+

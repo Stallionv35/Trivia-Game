@@ -31,3 +31,8 @@ Start button
     display: flex;
     justify-content: center;
 }
+
+p {
+    color: white;
+    text-align: center;
+}
