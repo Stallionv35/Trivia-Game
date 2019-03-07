@@ -1,6 +1,16 @@
 $(document).ready(function () {
-
+    $(".reset").hide();
 });
+
+var timer = 20;
+var timeInterval;
+var scoreCorrect = 0;
+var scoreWrong = 0;
+var scoreUA = 0;
+var userAnswer = "";
+var questionList = questions.length;
+var counterStart = false;
+
 
 /// Variable holds Questions
 var questions = [
