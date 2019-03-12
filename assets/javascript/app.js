@@ -7,6 +7,20 @@ $(".start").on("click", function() {
     }
 })
 
+function startTimer(){
+	if (!running) {
+	   timeInterval = setInterval(function everySecond() {
+	       if (timer === 0) {
+	           showQuestion();
+	           timer = 20;
+	       }
+	       timer--;
+	       $(".timerDiv").html("<p>" + "Time Remaining: " + timer + "</p>")
+	   }, 1000); //thousand milliseconds or one second
+	   running = true;
+	}
+}
+
 /// Variable holds Questions
 var questions = [
     {
@@ -45,11 +59,13 @@ var questions = [
         answer: 1,
     }];
 
+var running = false;
 var timer = 20;
 var timeInterval;
 var scoreCorrect = 0;
 var scoreWrong = 0;
 var scoreUA = 0;
+var questionsShown = 0;
 var userAnswer = "";
 var questionList = questions.length;
 var counterStart = false;
@@ -59,15 +75,44 @@ var choose;
 var index;
 
 function showQuestion() {
+    questionsShown++;
+    if(questionsShown === questions.length){
+        //Game over
+        //Show score
+        clearInterval(timeInterval);
+        running = false;
+        $(".reset").show();
+        //attach click handler to reset button that resets the game
+        $(".reset").on("click", function() {
+            
+        })
+    }
+    $(".answerDiv").empty();
+    startTimer();
     index = Math.floor(Math.random() * questions.length);
     choose = questions[index];
     $(".questionDiv").html("<p>" + choose.question + "</p>");
     for (i = 0; i < choose.choices.length; i++){
-        userGuess = $("<div>");
+        let userGuess = $("<div>");
         userGuess.addClass("guesschoice");
         userGuess.html(choose.choices[i]);
         userGuess.attr("data-guessvalue", i);
+        //userGuess.on("click", function(){ });
+        userGuess.click(function(event){
+            //choose.answer //index number for your correct answer
+            //userGuess.attr("data-guessvalue"); //Retrieve the userguess attribute
+            if(choose.answer === userGuess.data('guessvalue')){
+                scoreCorrect++;
+                $(".scoreCorrect").html("<p>" + "Total Points: " + scoreCorrect + "</p>");
+                showQuestion();
+            } else {
+                showQuestion();
+            }
+        });
         $(".answerDiv").append(userGuess);
     }
 }
 
+function resetGame() {
+    showQuestion();
+}

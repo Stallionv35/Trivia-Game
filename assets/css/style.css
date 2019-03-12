@@ -4,6 +4,11 @@ Body content
 body {
     background-image: url(../images/house.png)
 }
+.guesschoice {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
 /*
 House Trivia Title
 */
